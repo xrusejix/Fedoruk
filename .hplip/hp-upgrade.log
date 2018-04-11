@@ -1,0 +1,3 @@
+warning:  distro is not found in AUTH_TYPES
+hp-upgrade[1345]: info: :HPLIP upgrade function is disabled in Slackware.
+hp-upgrade[1345]: info: :Not attempting to download upgrades.

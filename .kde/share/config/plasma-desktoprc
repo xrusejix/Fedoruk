@@ -1,0 +1,30 @@
+[BackgroundConfigDialog]
+Height 1080=719
+Width 1920=669
+
+[KPropertiesDialog]
+Height 1080=397
+Width 1920=424
+
+[PlasmaViews][1]
+panelVisibility=0
+
+[PlasmaViews][1][Sizes]
+lastsize=1920
+
+[Updates]
+performed=/usr/share/apps/plasma-desktop/updates/systray-to-notifications-widget.js,/usr/share/apps/plasma-desktop/updates/set-hidden-single-vd-pager.js,/usr/share/apps/plasma-desktop/updates/addShowActivitiesManagerPlasmoid.js
+
+[ViewIds]
+1=1
+8=2
+
+[invokeAction]
+__file=
+predicate=test-predicate-openinwindow.desktop
+
+[unmount]
+__file=
+
+[updateFreespace]
+__file=

@@ -1,0 +1,16 @@
+[$Version]
+update_info=kded.upd:kde3.0
+
+[General]
+XftHintStyle=hintmedium
+dbfile=/home/ws/.mozilla/firefox/ullds7s8.default/places.sqlite
+desktopFont=Sans Serif,12,-1,5,50,0,0,0,0,0
+fixed=Monospace,12,-1,5,50,0,0,0,0,0
+font=Sans Serif,12,-1,5,50,0,0,0,0,0
+menuFont=Sans Serif,12,-1,5,50,0,0,0,0,0
+smallestReadableFont=Sans Serif,12,-1,5,50,0,0,0,0,0
+taskbarFont=Sans Serif,12,-1,5,50,0,0,0,0,0
+toolBarFont=Sans Serif,12,-1,5,50,0,0,0,0,0
+
+[WM]
+activeFont=Sans Serif,12,-1,5,50,0,0,0,0,0

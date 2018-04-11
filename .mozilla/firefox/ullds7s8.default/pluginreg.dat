@@ -1,0 +1,26 @@
+Generated File. Do not edit.
+
+[HEADER]
+Version:0.16:$
+Arch:x86_64-gcc3:$
+
+[PLUGINS]
+libflashplayer.so:$
+/usr/lib64/mozilla/plugins/libflashplayer.so:$
+11,2,202,548:$
+1446172003000:0:0:$
+Shockwave Flash 11.2 r202:$
+Shockwave Flash:$
+2
+0:application/x-shockwave-flash:Shockwave Flash:swf:$
+1:application/futuresplash:FutureSplash Player:spl:$
+skypebuttons.so:$
+/usr/lib64/mozilla/plugins/skypebuttons.so:$
+:$
+1373007976000:0:0:$
+Mime Type x-skype for Skype Buttons:$
+Skype Buttons for Kopete:$
+1
+0:application/x-skype:Skype Buttons::$
+
+[INVALID]

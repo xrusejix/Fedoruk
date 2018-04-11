@@ -1,0 +1,89 @@
+[General Options]
+ShowPath=false
+ShowStatusBar=true
+
+[Kate Document Defaults]
+Allow End of Line Detection=true
+Allow Simple Mode=true
+BOM=false
+Backup Flags=0
+Backup Prefix=
+Backup Suffix=~
+Encoding=ISO-8859-1
+End of Line=0
+Indent On Backspace=false
+Indent On Tab=true
+Indent On Text Paste=false
+Indentation Mode=normal
+Indentation Width=2
+Keep Extra Spaces=false
+Line Length Limit=4096
+Newline At EOF=false
+No sync=false
+On-The-Fly Spellcheck=false
+Overwrite Mode=false
+PageUp/PageDown Moves Cursor=false
+Remove Spaces=0
+ReplaceTabsDyn=false
+Search Dir Config Depth=9
+Show Spaces=false
+Show Tabs=true
+Smart Home=true
+Tab Handling=2
+Tab Width=8
+Word Wrap=false
+Word Wrap Column=80
+
+[Kate Part Defaults]
+Encoding Prober Type=1
+Fallback Encoding=ISO-8859-15
+
+[Kate Renderer Defaults]
+Schema=Normal
+Show Indentation Lines=false
+Show Whole Bracket Expression=false
+Word Wrap Marker=false
+
+[Kate Vi Input Mode Settings]
+Normal Mode Mapping Keys=
+Normal Mode Mappings=
+
+[Kate View Defaults]
+Allow Mark Menu=true
+Auto Center Lines=0
+Auto Completion=true
+Bookmark Menu Sorting=0
+Default Mark Type=1
+Dynamic Word Wrap=false
+Dynamic Word Wrap Align Indent=80
+Dynamic Word Wrap Indicators=1
+Folding Bar=true
+Icon Bar=false
+Line Modification=false
+Line Numbers=false
+Maximum Search History Size=100
+Persistent Selection=false
+Replacement Text History=
+Scroll Bar Marks=false
+Scroll Bar Mini Map=false
+Scroll Bar Mini Map All=false
+Scroll Bar Mini Map Width=60
+Scroll Past End=false
+Search Pattern History=
+Search/Replace Flags=140
+Smart Copy Cut=false
+Vi Input Mode=false
+Vi Input Mode Hide Status Bar=false
+Vi Input Mode Steal Keys=false
+Word Completion=true
+Word Completion Minimal Word Length=3
+
+[MainWindow]
+Height 1080=1081
+State=AAAA/wAAAAD9AAAAAAAAB4AAAAO0AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1920=1921
+
+[Recent Files]
+File1[$e]=$HOME/Lab2_V19/Lab2_V19.c
+Name1[$e]=Lab2_V19.c

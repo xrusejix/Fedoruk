@@ -1,0 +1,6 @@
+[Desktop Entry]
+Icon=text-plain
+Name=out.txt
+Type=Link
+URL[$e]=file://$HOME/Lab2_V19/out.txt
+X-KDE-LastOpenedWith=kate

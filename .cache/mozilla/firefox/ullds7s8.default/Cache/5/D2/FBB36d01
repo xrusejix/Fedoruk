@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>БиГОР</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1251">
+
+<SCRIPT language=JavaScript>
+var s0 = "<FORM METHOD='POST' ACTION='/?aut' TARGET='FPopUp' STYLE='margin-top:3px; margin-bottom:3px;'><DIV ALIGN='center'>"+
+	 "<NOBR>Имя <INPUT TYPE='TEXT' NAME='AUsr' SIZE=12></NOBR>&nbsp;&nbsp;"+
+	 "<NOBR>Пароль <INPUT TYPE='PASSWORD' NAME='APwd' SIZE=12></NOBR><BR>"+
+	 "<INPUT STYLE='margin-top:3px; margin-bottom:5px' TYPE='SUBMIT' VALUE='Авторизация'><BR>"+
+	 "<A TARGET='FPopUp' HREF='/?reg' STYLE='text-decoration:none; color:blue'>&nbsp;Регистрация&nbsp;</A>"+
+	 "</DIV></FORM>";
+var s1 = "Авторизация выполнена:<DIV STYLE='font-size:17px; color:#00B200; font-family:sans-serif; font-weight:bold; margin-bottom:5px'>";
+var s2 = "</DIV><A TARGET='FPopUp' HREF='/?reg' STYLE='text-decoration:none; color:blue'>&nbsp;Настройки&nbsp;</A>&nbsp;&nbsp;"+
+         "<A TARGET='FPopUp' HREF='/?aut/?out=y' STYLE='text-decoration:none; color:blue'>&nbsp;Деавторизация&nbsp;</A>";
+function auth() {
+var c = document.cookie+";";
+var n1 = c.indexOf("USR=");
+var n2 = 0; if(n1 >= 0) n2 = c.indexOf(";", n1);
+var u = null; if(n2 > 0) u = c.substring(n1+4, n2);
+if(u != null) return s1 + u + s2; else return s0; }
+
+//---------------------------------------
+
+function showLogo() {
+document.getElementById('Logo').style.visibility="visible"; }
+
+function hideLogo() {
+document.getElementById('Logo').style.visibility="hidden"; }
+
+var bx=0, by=0, bw=0, bh=0;
+var box=null, tit=null, txt=null;
+var his=null;
+var dx=0, dy=0, dflg=0;
+
+function puInit() {
+box=document.getElementById('PopUp');
+tit=document.getElementById('PopUpTitle');
+txt=document.getElementById('PopUpText');
+puClose();
+tit.style.cursor='default';
+bw = document.body.scrollWidth*0.55; if(bw < 350) bw = 350;
+bx = (document.body.scrollWidth-bw)/2-3; by=50;
+txt.style.width=bw;
+if(box.filters != null) box.style.filter='revealtrans(transition=1)'; }
+
+function puClose() {
+if(box == null) return;
+dFlg=0; txt.style.height=80;
+box.style.top=-1000;
+box.style.visibility='hidden';
+his = null; }
+
+function puOpen() {
+if(box == null) return;
+if(box.filters != null && his == null) box.filters.item(0).Apply();
+dFlg=0;
+var v = '';
+var t = new String(FPopUp.document.title);
+if(t == null || t.length == 0) { document.location.href=new String(document.location.href); return; }
+if(t.charAt(0) == '!') { t = t.substring(1); v = 'hidden'; }
+document.getElementById('PopUpBack').style.visibility = v;
+document.getElementById('PopUpForw').style.visibility = v;
+tit.innerHTML=t;
+bh = FPopUp.document.body.scrollHeight+6; if(bh > 500) bh = 500; else if(bh < 100) bh = 100;
+txt.style.height=bh;
+box.style.left=document.body.scrollLeft+bx;
+box.style.top=document.body.scrollTop+by;
+box.style.visibility='visible';
+if(box.filters != null && his == null) box.filters.item(0).play(0.3);
+if(his == null) his=FPopUp.document.location.href; }
+
+function puScroll() {
+if(his == null) return;
+box.style.left=document.body.scrollLeft+bx;
+box.style.top=document.body.scrollTop+by; }
+
+function puForw() {
+FPopUp.history.forward(); }
+
+function puBack() {
+if(FPopUp.document.location.href == his) return;
+FPopUp.history.back(); }
+
+function puMove(ev) {
+if(dflg == 0) return;
+bx = bx+(ev.screenX-dx); box.style.left=document.body.scrollLeft+bx; dx=ev.screenX;
+by = by+(ev.screenY-dy); box.style.top=document.body.scrollTop+by; dy=ev.screenY;
+ev.cancelBubble=true; }
+
+function puStart(ev) {
+if(ev.button > 1) return;
+dflg=1; tit.style.cursor='move';
+dx=ev.screenX;
+dy=ev.screenY; }
+
+function puStop() {
+tit.style.cursor='default'; dflg=0; }
+
+</SCRIPT>
+
+<STYLE type="text/css">
+.puTitle { background-color:#7070FF; text-align:center; height:21px; margin-top:1px; font-family:sans-serif; font-weight:bold; color:white; font-size:15px; letter-spacing:1px; }
+.Sty1 { font-family:verdana,sans-serif; font-size:13px; font-weight:bold; text-decoration:none }
+</STYLE>
+
+
+<BODY TOPMARGIN=0 BOTTOMMARGIN=10 LEFTMARGIN=0 RIGHTMARGIN=0 BGCOLOR='#FAEDE5' onload='auth();puInit()' onresize='puInit()' onscroll='puScroll()' onmousemove='puMove(event)' onmouseup='puStop()'>
+
+<TABLE BGCOLOR='#7070FF' BORDER=1 ID=PopUp STYLE='visibility:hidden; position:absolute'>
+<TR><TD>
+<A ID=PopUpBack HREF='javascript:puBack()'><IMG HSPACE=1 VSPACE=1 BORDER=0 SRC='/?asr/HTML_Back.gif' ALIGN='left' ALT='Назад'></A>
+<A ID=PopUpForw HREF='javascript:puForw()'><IMG HSPACE=1 VSPACE=1 BORDER=0 SRC='/?asr/HTML_Forw.gif' ALIGN='left' ALT='Вперед'></A>
+<A HREF='javascript:puClose()'><IMG HSPACE=1 VSPACE=1 BORDER=0 SRC='/?asr/HTML_Close.gif' ALIGN='right' ALT='Закрыть'></A>
+<DIV ID=PopUpTitle onmousedown='puStart(event)' CLASS='puTitle'></DIV>
+</TD></TD><TR><TD>
+<IFRAME NAME=FPopUp ID=PopUpText FRAMEBORDER='no' SCROLL='auto' onload='puOpen()'></IFRAME>
+</TD></TD>
+</TABLE>
+
+
+<DIV id=Logo STYLE='left:10px; top:10px; visibility:hidden; position:absolute; background-color:#FAEDE5'>
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=1>
+<TR><TD><IMG SRC='/?asr/BiGOR.jpg' BORDER=0 onmouseout='hideLogo()'></TD></TR></TABLE>
+</TD></DIV>
+
+
+<DIV onmousedown='puClose()'>
+
+<TABLE border=0 cellpadding=0 cellspacing=0><TR><TD>
+<DIV STYLE='margin-left:15px; margin-right:15px; margin-top:10px; margin-bottom:10px'>
+<TABLE ALIGN=left STYLE='margin-right:10px; margin-bottom:5px;' BORDER=1 CELLSPACING=1>
+<TR><TD><A HREF='javascript:showLogo()'><IMG BORDER=0 SRC='/?asr/BiGOR.jpg' width=300 height=210></A></TD></TR></TABLE>
+
+<CENTER STYLE='color:#C4906E; font-family:sans-serif; font-weight:bold; font-size:21px; margin-top:0px' >
+База и Генератор Образовательных Ресурсов</CENTER>
+
+<DIV STYLE='color:#264BA5; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Автоматизированная обучающая система БиГОР создана в соответствии с технологией разделяемых единиц контента, основанной на онтологическом подходе. Основными подсистемами БиГОР являются информационная, инструментальная, компилирующая и обучающая.
+<BR>&nbsp;&nbsp;&nbsp;Информационная подсистема представляет собой базу учебных материалов, в которую входят тезаурус понятий, учебные, тестовые и справочные модули, а также учебные курсы. Учебные модули являются составными частями потенциальных учебных пособий, в них могут содержаться фрагменты учебного материала в различных формах.
+<BR>&nbsp;&nbsp;&nbsp;Инструментальная подсистема служит для разработки и сопровождения базы учебных материалов с полуавтоматическим преобразованием текста в гипертекст.
+<BR>&nbsp;&nbsp;&nbsp;Компилирующая подсистема предназначена для формирования новых версий учебных пособий. Составление учебного пособия включает навигацию по семантической сети элементов тезауруса, покрытие выбранных понятий модулями базы, упорядочение модулей и редактирование полученного оглавления. Выбор альтернативных модулей и их упорядочение возможны как автоматически, так и в ручном режиме.
+<BR>&nbsp;&nbsp;&nbsp;Обучающая подсистема используется обучаемыми для доступа к библиотеке гипертекстовых учебных пособий, изучения материалов пособия в представленной последовательности с возможностями навигации по модулям базы, а также выполнения упражнений и заданий, содержащихся в тестовых модулях, в том числе с переходом во внешние среды.
+<BR>&nbsp;&nbsp;&nbsp;Дополнительно в БиГОР имеются информационно-поисковая и административная подсистемы.
+</DIV>
+</DIV>
+</TD></TR></TABLE>
+
+<TABLE BORDER=1 ALIGN='center' WIDTH='98%'><TR VALIGN='middle' STYLE='background-color:#E1F8E1'>
+<TD WIDTH="50%">
+<DIV STYLE='margin-left:13px; margin-right:8px; margin-top:8px; margin-bottom:8px;'>
+<A HREF='/?apk' TARGET='FPopUp' CLASS='Sty1'>Все пакеты базы учебных модулей</A><BR>
+<A HREF='/?aco' TARGET='FPopUp' CLASS='Sty1'>Все учебные курсы</A><BR>
+</DIV></TD>
+<TD ALIGN='center'>
+<FORM METHOD='POST' ACTION='/?fin' TARGET='FPopUp' CLASS='Sty1' STYLE='margin-left:8px; margin-right:8px; margin-top:5px; margin-bottom:5px;'>
+<DIV>
+<INPUT TYPE='TEXT' NAME='FTxt' SIZE=25>
+<NOBR><INPUT TYPE='CHECKBOX' NAME='FStr' VALUE='Str'>Строгое соответствие</NOBR>
+</DIV>
+<DIV>
+<NOBR><INPUT TYPE='RADIO' NAME='FTyp' VALUE='Ent' CHECKED>Искать термины</NOBR>&nbsp;&nbsp;
+<NOBR><INPUT TYPE='RADIO' NAME='FTyp' VALUE='Cnt'>Искать документы</NOBR>
+</DIV>
+<DIV STYLE='margin-top:2px;'>
+<INPUT TYPE='SUBMIT' VALUE='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Поиск&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'>
+</DIV>
+</FORM>
+</TD>
+</TR></TABLE>
+
+
+<DIV style='margin-top:8px; text-align:center; font-family:sans-serif; font-size:16pt; font-weight:bold; color:#B4805E'>
+Электронные образовательные ресурсы
+</DIV>
+
+
+<DIV WIDTH=95% align=center STYLE='margin-top:3px;'>
+<TABLE width=98% cellPadding=10 border=1>
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=140_CADedu/CAD.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Основы САПР</NOBR></SPAN></CENTER>
+<IMG BORDER=0 SRC='/?pkl/140_CADedu' ALIGN=right WIDTH=200 HEIGHT=140 STYLE='margin-left:10px; margin-top:8px; margin-bottom:5px' >
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебник "Основы автоматизированного проектирования" является введением в технологии САПР, знакомит студентов с наиболее общими инвариантными относительно приложений методами и средствами современного проектирования, которые иллюстрируются примерами из конкретных предметных областей. Цель курса — подготовить студентов к освоению методик работы в конкретных САПР, изучаемых в профильных для специальности дисциплинах.
+<BR>&nbsp;&nbsp;&nbsp;Для изучения курса требуется знание математики и общеинженерных дисциплин в объеме, типичном для технического университета.
+<BR>&nbsp;&nbsp;&nbsp;Автор учебника: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD width=50%>
+<A HREF='/?cnt/?doc=215_Netwedu/Networks.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Телекоммуникационные технологии и сети</NOBR></SPAN></CENTER>
+<IMG BORDER=0 SRC='/?pkl/215_Netwedu' ALIGN=right WIDTH=200 HEIGHT=140 STYLE='margin-left:10px; margin-top:8px; margin-bottom:5px' >
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Электронный учебник содержит сведения о современных методах и средствах телекоммуникационных технологий. В сжатой форме освещены различные аспекты телекоммуникаций и информационных сетей. Основное внимание уделено основам устройства и функционирования каналов передачи данных, локальным и территориальным вычислительным сетям, протоколам TCP/IP. Кратко рассмотрены особенности сетей ATM, систем  распределенных вычислений, Web-сервисы а также языки разметки.
+<BR>&nbsp;&nbsp;&nbsp;Автор учебника: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=Default/020_ECAD.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Автоматизация проектирования в радиоэлектронике</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Проектирование современных СБИС и РЭА в значительной степени является автоматизированным. В учебном пособии представлены основные положения, модели и методы автоматизации схемотехнического, функционально-логического и конструкторского проектирования в электронике и радиоэлектронике. Дано описание языка проектирования VHDL.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Default/030_web.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Введение в Web-технологии</NOBR></SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Курс посвящен различным аспектам  современных Web-технологий. Основное внимание уделено базовым компонентам Web: языкам разметки HTML и XML, компонентно-ориентированным и сервис-ориентированным технологиям, включающим сетевые службы SOAP, UDDI, протоколы HTTP,  WSDL и др. Наряду с этим, рассмотрены общие вопросы распределенных вычислений,  протоколы  семантического  Web, дана характеристика программных систем, поддерживающих Web-технологии.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=Default/050_iteduc.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Информационные технологии в образовании</NOBR></SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит сведения о различных аспектах информатизации деятельности высших учебных заведений. Рассматриваются дистанционное обучение, электронные учебники и учебные пособия, инструментальные средства их разработки, образовательные порталы и т.п.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Default/070_History.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>История вычислительной техники и информационных технологий</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит сведения об истории развития вычислительной техники и основных информационных технологий.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=Default/110_CALS.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Основы CALS-технологий</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Информационная поддержка изделий (ИПИ или CALS) является современной методологией автоматизации различных этапов жизненного цикла промышленной продукции (ЖЦП). CALS-технологии обеспечивают интеграцию автоматизированных систем проектирования и управления производстом за счет создания единого информационного пространства и доступа к нему всех участников ЖЦП в нужное врем и в нужном месте.
+<BR>&nbsp;&nbsp;&nbsp;В пособии изложены основные положения CALS-технологий, охарактеризованы стандарты CALS, описан язык информационного взаимодействия систем Express.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=NJD67VC40B9S70SSMJ90' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Применение CAD/CAM систем для проектирования и технологической подготовки производства</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Курс посвящен автоматизации важнейших этапов жизненного цикла промышленной продукции - проектированию и технологической подготовке производства. Он содержит сведения о постановках задач, методах, алгоритмах и программах их решения с помощью современных САПР.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=Default/140_SAP.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Применение ERP cистемы SAP Business Suite для решения задач управления предприятиями</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Cистема mySAP Business Suite, разработанная компанией SAP является мировым лидером в области ERP систем высокого уровня. В учебном пособии описаны назначение, структура, а также функции системы и ее подсистем.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик учебного пособия: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Default/AIS.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Автоматизированные информационные системы</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Современные информационные технологии в концентрированном виде представлены в автоматизированных информационных системах. В курсе кратко охарактеризованы структуры и задачи, решаемые как в системах автоматизированного проектирования и системах управления предприятиями и технологическими процессами, так и в ряде систем непромышленного профиля.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=Default/010_erp.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Автоматизированные системы управления</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс является введением в автоматизированные системы управления предприятиями, производством и технологическими процессами. Рассмотрены назначение и основные функции подсистем планирования, логистики, управления документами и др.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Default/150_Hard.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Техническое обеспечение автоматизированных систем</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс предназначен для ознакомления студентов, изучающих построение и использование автоматизированныих систем с вопросами их технического обеспечения. Кратко охарактеризованы структуры и принципы функционирования компьютеров и вычислительных систем. Основное внимание уделено типам, протоколам и компонентам вычислительных сетей.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=Default/142_problems.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Современные проблемы информатики и вычислительной техники</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Дисциплина &quot;Современные проблемы информатики и вычислительной техники&quot; входит в учебный план подготовки магистров по направлению &quot;Информатика и вычислительная техника&quot;.
+<BR>&nbsp;&nbsp;&nbsp;Основная цель учебного курса - изучение системных вопросов построения автоматизированных систем, ознакомление с подходами к решению наиболее сложных задач проектирования и управления. Одной из мировоззренческих проблем информатики является проблема сущности информации, для ее понимания необходимо знать основы теории информации.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Default/Evolution.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Эволюционные методы для решения задач проектирования и логистики</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Эволюционные методы относятся к числу эффективных средств решения задач оптимизации и структурного синтеза проектных решений. Они основаны на использовании принципов оптимального приспособления организмов в живой природе к условиям окружающей среды. К числу эволюционных относятся методы: генетические, колонии муравьев, поведения толпы. Наиболее развиты и востребованы в настоящее время генетические алгоритмы. Курс посвящен рассмотрению как самих эволюционных методов (в первую очередь генетических), так и характерных задач, решаемых с помощью этих методов.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=Default/145_circuits.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Схемотехника</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Краткий учебный курс "Схемотехника" содержит первоначальные сведения по элементной базе ЭВМ и некоторым аналоговым схемам.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.т.н. профессор Норенков И.П.</B>
+</DIV></A></TD>
+
+<TD width=50%>
+<A HREF='/?cnt/?doc=PA9/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Моделирование процессов с помощью системы ПА9</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном пособии приведены сведения о пользовательском графическом интерфейсе программно-методического комплекса моделирования и оптимизации сложных технических объектов ПА9.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик учебного пособия: &nbsp;&nbsp;<B>к.т.н. доцент Трудоношин В.А.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=Mkr/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Моделирование систем с распределенными параметрами</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном курсе изложены вопросы моделирования систем с распределенными параметрами, то есть расчета полей некоторых физических сущностей, состояние которых описывается дифференциальными уравнениями в частных производных. Например: поля температур, поля напряжений, электромагнитные поля и т.п. В качестве методов моделирования рассмотрены метод конечных разностей и метод конечных элементов применительно к стационарным и нестационарным задачам.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Трудоношин В.А.</B>
+</DIV></A></TD>
+
+<TD width=50%>
+<A HREF='/?cnt/?doc=Mod/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Моделирование систем с сосредоточенными параметрами</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном курсе рассматриваются вопросы получения математических моделей сложных технических объектов, имеющих в своем составе различные физические подсистемы. Приводятся аналогии между подсистемами и способы взаимодействия между ними.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Трудоношин В.А.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=NN/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Искусственные нейронные сети</NOBR></SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс посвящен важнейшим разделам теории искусственных нейронных сетей. Дана классификация типов искусственных нейронов и сетей на их основе. Особое внимание уделено методам обучения нейронных сетей. Для изучения данного курса требуется знание теории непрерывной оптимизации. В конце учебного курса приведены методические пособия по проведению лабораторных работ.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Федорук В.Г.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=IPPP/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Исчисление предикатов первого порядка в качестве модели представления знаний</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном пособии рассматривается применение исчисления предикатов первого порядка в системах искусственного интеллекта. Дано краткое введение в формальные системы. Описано исчисление предикатов первого порядка (алфавит, формулы, аксиомы, правила вывода) и приведены примеры доказательства ряда теорем, среди которых правило резолюции. Рассмотрен метод резолюции, используемый для автоматического доказательства теорем. Введено понятие интерпретации исчисления предикатов первого порядка, позволяющей использовать язык исчисления предикатов для представления и манипулирования знаниями.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Федорук В.Г.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD colspan=2>
+<A HREF='/?cnt/?doc=Prolog/Prolog.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Язык программирования Пролог</NOBR></SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном пособии кратко описывается язык программирования Пролог. Рассматриваются основные приемы программирования. Дается перечень полезных встроенных предикатов. Завершается пособие методическими указаниями по проведению лабораторной работы. Перед освоением материала рекомендуется ознакомиться с учебным пособием &quot;Исчисление предикатов первого порядка в качестве модели представления знаний&quot;.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Федорук В.Г.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=MO/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Методы оптимизации</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит постановку и классификацию детерминированных одномерных и многомерных задач локальной и глобальной, безусловной и условной оптимизации, а также описание основных детерминированных и случайных методов решения таких задач. Курс включает в себя также постановку непрерывной задачи многокритериальной оптимизации и описание основных методов решения этой задачи. Кроме того, в курсе дана постановка задачи оптимального управления динамическими системами и методы ее решения на основе принципа максимума Понтрягина и принципа оптимальности Беллмана.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.ф.-м.н. профессор Карпенко А.П.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Parallel/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'><NOBR>Параллельные вычисления</NOBR></SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном курсе рассмотрены следующие основные вопросы: архитектура параллельных вычислительных систем; программирование параллельных вычислительных систем; параллельные численные методы для решения основных классов вычислительных задач.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>д.ф.-м.н. профессор Карпенко А.П.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=OP2/OP_T.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Основы программирования</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебнике изложены теоретические положения разработки программного обеспечения с использованием структурного программирования. Подробно рассмотрены основные приемы решения задач различных классов. В качестве языка программировия используется язык Си. Приводится достаточно подробное описание языка Си.
+<BR>&nbsp;&nbsp;&nbsp;Содержание учебника соответствует курсу лекций, которые авторы читают в МГТУ им. Н.Э. Баумана.
+<BR>&nbsp;&nbsp;&nbsp;Учебник предназначен для студентов вузов, обучающихся по специальностям, связанным с информатикой. Также может быть полезен всем изучающим программирование самостоятельно.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики учебника: &nbsp;&nbsp;<B>старший преподаватель Федорук Е.В., к.т.н. ассистент Шварц Д.Т.</B>
+</DIV></A>
+<DIV style="text-align:center; color:blue; font-weight:bold; font-family:verdana,sans-serif; font-size:13px; margin-top:3px; margin-bottom:-4px;">
+<A HREF='/?cnt/?doc=OP2/OP_T.cou' STYLE='text-decoration:underline'>&nbsp;Теоретический курс&nbsp;</A>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<A HREF='/?cnt/?doc=OP2/OP_P.cou' STYLE='text-decoration:underline'>&nbsp;Практические занятия&nbsp;</A>
+</DIV>
+</TD>
+
+<TD>
+<A HREF='/?cnt/?doc=PYAVU/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Стандартные функции, структуры данных и алгоритмы системы программирования языка С</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит основы структурного программирования на языке С с использованием библиотечных функций стандарного буферизованного ввода-вывода, а также оперативной обработки данных, организованных в строки символов и блоки памяти. Рассмотрены основные структуры данных и алгоритмы.
+<BR>&nbsp;&nbsp;&nbsp;Учебный курс разработан для студентов вузов, изучающих программирование на языке С и выполняющих практические работы по программированию в различных операционных средах.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B>к.т.н. доцент Волосатова Т.М., старший преподаватель Родионов С.В.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=VU/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Объектно-ориентированное программирование на С++</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном курсе рассматриваются основные конструкции языка С++ и принципы объектно-ориентированного программирования (ООП). Рассмотрен основной принцип ООП - абстрагирование и способ его реализации с помощью классов. Определен механизм наследования и его реализация. Рассмотрены механизмы полиморфизма - статического и динамического. Определены основные средства языка и стандартной библиотеки С++.
+<BR>&nbsp;&nbsp;&nbsp;Учебный курс разработан для студентов вузов, изучающих ООП на языке С++ и выполняющих практические работы по программированию в различных операционных средах.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B>к.т.н. доцент Волосатова Т.М., старший преподаватель Родионов С.В.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Comby/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Методы комбинаторных вычислений</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Комбинаторные вычисления особенно актуальны в теории вероятностей, теории кодирования, теории чисел, теории графов, теории игр, а также для криптографического анализа информации. Основными операционными объектами комбинаторных вычислений являются сочетания, перестановки, размещения и разбиения элементов конечных множеств и натуральных чисел. Данное учебное пособие рекомендовано для изучения в рамках курса &quot;Лингвистическое и программное обеспечение САПР&quot;.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B> к.т.н. доцент Волосатова Т.М., старший преподаватель Князева С.Ю., к.т.н. доцент Пясецкий В.Б., старший преподаватель Родионов С.В.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD>
+<A HREF='/?cnt/?doc=LO-SAPR/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Лингвистическое обеспечение САПР</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Основными объектами изучения научного направления "Лингвистическое и программное обеспечение САПР" являются управление задачами и памятью в операционных системах, проблемы разработки языка высокого уровня, языки для реализации интерфейса и написания программ, вопросы трансляции программ, написанных на различных языках. Методы построения подобных программ в различных предметных областях основаны на моделях конечных автоматов и теории формальных грамматик. Широкое использование таких моделей в теоретических исследованиях и разработке систем, используемых на практике, позволяет рассматривать их как одну из основ образования по направлению "Лингвистическое и программное обеспечение САПР". Главным назначением дисциплины "Лингвистическое обеспечение САПР" является ознакомление студентов, обучающихся по данному направлению с основами теории формальных грамматик и языков, методами и приемами практического использования аппарата формальных грамматик и конечных автоматов.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B>к.т.н. доцент Волосатова Т.М., старший преподаватель Родионов С.В.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=PO_CAD/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Программное обеспечение САПР</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит информацию об основных стандартах, поддерживающих создание мобильных программ в информационных системах, сведения об информационных структурах, базовые алгоритмы сортировки и поиска, основные комбинаторные понятия и методы вычислений. Проведен анализ статических и динамических свойств структур данных разных типов, а также алгоритмов для создания, изменения, удаления информации о структуре данных, а также для доступа к ней. Проведен анализ основных методов комбинаторных вычислений.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B>к.т.н. доцент Беломойцев Д.Е., к.т.н. доцент Волосатова Т.М., старший преподаватель Родионов С.В.</B>
+</DIV></A></TD>
+</TR>
+
+
+<TR align=center valign=top STYLE='background-color:#E2E9F9'>
+<TD width=50%>
+<A HREF='/?cnt/?doc=MPSU/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Микропроцессорные системы управления в робототехнике и мехатронике</SPAN></CENTER>
+<IMG BORDER=0 SRC='/?pkl/MPSU' ALIGN=left WIDTH=200 HEIGHT=140 STYLE='margin-right:10px; margin-top:8px; margin-bottom:5px' >
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;Учебный курс содержит сведения об аппаратных и программных средствах микропроцессорных систем управления мехатронных систем и роботов.
+<BR>&nbsp;&nbsp;&nbsp;В сжатой форме освещены различные аспекты архитектуры, интерфейсов и программных средств микропроцессорных систем управления. Представлены способы и методы проектирования рассматриваемых систем, реализации алгоритмов управления. Даны основные сведения о системном программном обеспечении и организации распределенных систем.
+<BR>&nbsp;&nbsp;&nbsp;Разработчики курса: &nbsp;&nbsp;<B>к.т.н. доцент Рассадкин Ю.И., к.т.н. доцент Синицын А.В., к.т.н. доцент Бошляков А.А.</B>
+</DIV></A></TD>
+
+<TD>
+<A HREF='/?cnt/?doc=Paransys/base.cou' STYLE='text-decoration:none'>
+<CENTER STYLE='margin-top:-6px'>
+<SPAN STYLE='font-family:serif; font-size:20px; font-weight:bold; color:blue;'>Параметрический анализ систем</SPAN></CENTER>
+<DIV STYLE='color:#000000; font-family:verdana,sans-serif; font-weight:normal; font-size:12px; text-align:left; margin-top:4px;'>
+&nbsp;&nbsp;&nbsp;В учебном курсе рассмотрены основные методы параметрического анализа систем управления. В рамках многовариантного анализа проводятся исследования как на равномерной сетке, так и с помощью аппарата равномерно распределенных последовательностей. Приводятся методики исследований чувствительности систем к вариациям параметров, построение корневого годографа, D-разбиение и др. Дается описание среды визуальных исследований на базе пакета MATLAB.
+<BR>&nbsp;&nbsp;&nbsp;Разработчик курса: &nbsp;&nbsp;<B>к.т.н. доцент Романова И.К.</B>
+</DIV></A></TD>
+</TR>
+
+
+</TABLE>
+</DIV>
+
+<CENTER CLASS='Sty1' STYLE='margin-top:2px'>Copyright (C) 2003-2015 МГТУ им. Н.Э.Баумана, кафедра САПР &nbsp;&nbsp;e-mail: <A STYLE='text-decoration:none' HREF='mailto:bigor@rk6.bmstu.ru'>bigor@rk6.bmstu.ru</A></CENTER>
+</DIV>
+</BODY></HTML>

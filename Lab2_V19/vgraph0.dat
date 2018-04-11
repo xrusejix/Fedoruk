@@ -1,0 +1,6 @@
+set xrange[0:999]
+
+do for [i=0:999]{
+plot 'out.txt' index i using 1:2 smooth bezier title '123'
+pause 0.02}
+pause -1
