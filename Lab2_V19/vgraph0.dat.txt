@@ -1,7 +1,0 @@
-set terminal qt
-set xrange[0:99]
-set yrange[0:70]
-do for [i=0:49]{
-plot 'out.txt' index i using 1:2 smooth bezier title 'powered by Seva'
-pause 0.5}
-pause -1
